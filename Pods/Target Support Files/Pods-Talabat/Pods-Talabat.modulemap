@@ -1,0 +1,6 @@
+module Pods_Talabat {
+  umbrella header "Pods-Talabat-umbrella.h"
+
+  export *
+  module * { export * }
+}
