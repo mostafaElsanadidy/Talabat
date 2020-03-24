@@ -128,47 +128,49 @@ class restaurantCollectionViewCell: UICollectionViewCell{
            self.rest_Imag.af_setImage(withURL: url!, placeholderImage: UIImage.init(named: ""), filter: nil,  imageTransition:UIImageView.ImageTransition.crossDissolve(0.5) , runImageTransitionIfCached: true, completion: nil)
        }
     
-    
-    
-    func getcurrentAddress(with location:String) -> String{
+
+
+        func getcurrentAddress(with location:String) -> String{
+            
+            let locations = location.split{$0 == ","}.map(String.init)
+           // let longitude = locations[1].replacingOccurrences(of: " ", with: "")
+            var addressStr = location
+            
+           if let longitude = CLLocationDegrees(locations[1])
+            ,let latitude = CLLocationDegrees(locations[0])
+           {
+            let currentLocation = CLLocation.init(latitude: latitude, longitude: longitude)
+            
+                let geocoder = CLGeocoder()
+                    
+                // Look up the location and pass it to the completion handler
+            print(currentLocation)
+                geocoder.reverseGeocodeLocation(currentLocation,
+                            completionHandler: { (placemarks, error) in
+                                print(placemarks ?? "")
+                if error==nil , let p=placemarks , !p.isEmpty{
+                    
+                    let lastLocation = p.last!
+                    addressStr = self.string(from: lastLocation)
+                    }
+                })
+        }
+            print(addressStr)
+            return addressStr
+      }
         
-        let locations = location.split{$0 == ","}.map(String.init)
-        var addressStr = location
-        
-       if let longitude = CLLocationDegrees(locations[1])
-        ,let latitude = CLLocationDegrees(locations[0])
-       {
-        let currentLocation = CLLocation.init(latitude: latitude, longitude: longitude)
-        
-            let geocoder = CLGeocoder()
-                
-            // Look up the location and pass it to the completion handler
-            geocoder.reverseGeocodeLocation(currentLocation,
-                        completionHandler: { (placemarks, error) in
-            if error==nil , let p=placemarks , !p.isEmpty{
-                
-                let lastLocation = p.last!
-                addressStr = self.string(from: lastLocation)
-                }
-            })
-    }
-        return addressStr
-  }
-    
-    func string(from placemark: CLPlacemark) -> String {
-           var line = ""
-           line.add(text: placemark.subThoroughfare)
-           line.add(text: placemark.thoroughfare, separatedBy: " ")
-           line.add(text: placemark.locality, separatedBy: ", ")
-           line.add(text: placemark.administrativeArea, separatedBy: ", ")
-//           line.add(text: placemark.postalCode, separatedBy: " ")
-//           line.add(text: placemark.country, separatedBy: ", ")
-           print("((((((((((((((( \(line) ))))))))))))")
-           return line }
+        func string(from placemark: CLPlacemark) -> String {
+               var line = ""
+               line.add(text: placemark.subThoroughfare)
+               line.add(text: placemark.thoroughfare, separatedBy: " ")
+               line.add(text: placemark.locality, separatedBy: ", ")
+               line.add(text: placemark.administrativeArea, separatedBy: ", ")
+    //           line.add(text: placemark.postalCode, separatedBy: " ")
+    //           line.add(text: placemark.country, separatedBy: ", ")
+               print("((((((((((((((( \(line) ))))))))))))")
+               return line }
+
 }
-
-
-
 
 class CustomMarkerView: UIView {
     var img: UIImage!

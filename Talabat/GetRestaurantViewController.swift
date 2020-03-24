@@ -2,7 +2,7 @@
 //  GetRestaurantViewController.swift
 //  Talabat
 //
-//  Created by mostafa elsanadidy on 3/20/20.
+//  Created by mostafa elsanadidy on 3/22/20.
 //  Copyright © 2020 68lion. All rights reserved.
 //
 
@@ -203,10 +203,10 @@ extension GetRestaurantViewController{
                    case .failure(_):
                        print("error")
                        
-                       self.collectionView.hideSpinner(tag: 1000)
                        break
                    }
            }
+        self.collectionView.hideSpinner(tag: 1000)
     }
     
     func show_Error(errorMessageText: String) {

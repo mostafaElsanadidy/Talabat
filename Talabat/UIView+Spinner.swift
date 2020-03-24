@@ -2,7 +2,7 @@
 //  UIView+Spinner.swift
 //  Talabat
 //
-//  Created by mostafa elsanadidy on 3/20/20.
+//  Created by mostafa elsanadidy on 3/22/20.
 //  Copyright © 2020 68lion. All rights reserved.
 //
 

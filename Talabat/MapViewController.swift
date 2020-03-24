@@ -21,6 +21,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate{
     var restLocation:CLLocation?
     var ordrLocation:CLLocation?
     var location: CLLocation?
+    var marker:GMSMarker?
     var updatingLocation = false
     var addressStatus=""
     var lastLocationError: Error?
@@ -59,27 +60,16 @@ class MapViewController: UIViewController ,GMSMapViewDelegate{
                 }
     
                        }
-//                       else{
-//
-//                         self.show_Error(errorMessageText: self.restaurants_Details.message!)
-//                       }
-            
-//            collectionView.hideSpinner(tag: 1000)
         }
     }
     
-    @IBOutlet weak var barImage: UIImageView!
-    @IBOutlet weak var map_View: UIView!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
         print("ftftrftrtrfrtfrtfrtfrt")
         
         self.title = "Home"
-        
-        
-     //   self.view.backgroundColor = UIColor.white
-//        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.4352941176, green: 0.6549019608, blue: 0.2509803922, alpha: 1)
         locationManager.delegate = self
         
         let data = UserDefaults.standard.data(forKey: "restaurants_Details")
@@ -97,19 +87,19 @@ class MapViewController: UIViewController ,GMSMapViewDelegate{
                 ,let latitude = CLLocationDegrees(locations[0]){
                 
                 restLocation=CLLocation(latitude: latitude, longitude: longitude)
+               // let str = getcurrentAddress(with: resLocation)
             }
         }
         
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: restLocation!.coordinate.latitude, longitude: restLocation!.coordinate.longitude)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
+        
         marker.map = myMapView
         myMapView.animate(toLocation: (restLocation!.coordinate))
         myMapView.delegate = self
-        self.startLocationManager()
+       // self.startLocationManager()
         view = myMapView
-        view.
+        
         
         displayRstaurantOrdr()
         // Add the map to the view, hide it until we've got a location update.
@@ -132,20 +122,22 @@ class MapViewController: UIViewController ,GMSMapViewDelegate{
     let alertController = UIAlertController(title: nil, message: nil,
     preferredStyle: .actionSheet)
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel,
-    handler: nil)
+                                     handler: {
+                                        _ in
+                                        self.marker!.map = nil
+    })
     alertController.addAction(cancelAction)
-    let takePhotoAction = UIAlertAction(title: "Take Photo",
+    let takePhotoAction = UIAlertAction(title: "show order details",
                                         style: .default, handler: {
                                             _ in self.performSegue(withIdentifier: "getOrderDetails", sender: nil)})
     alertController.addAction(takePhotoAction)
    
     let chooseFromLibraryAction = UIAlertAction(title:
-        "Choose From Library", style: .default, handler: {
+        "show direction", style: .default, handler: {
             _ in
             
-            let location = CLLocation.init(latitude: 32.023906, longitude: 32.368344)
-            
-            self.getPolylineRoute(from: self.ordrLocation!.coordinate, to: location.coordinate)
+           // let location = CLLocation.init(latitude: 32.023906, longitude: 32.368344)
+            self.getPolylineRoute(from: self.ordrLocation!.coordinate, to: self.restLocation!.coordinate)
           //  self.drawPath(startLocation: self.ordrLocation!, endLocation:location)
             //self.restLocation!)
     })
@@ -155,23 +147,48 @@ class MapViewController: UIViewController ,GMSMapViewDelegate{
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
       
+        self.marker = marker
         let position = marker.position
         let positionStr = "\(position.latitude), \(position.longitude)"
         let ordrsDetails = restaurantOrders_Details.return!
+        ordrLocation = CLLocation.init(latitude: position.latitude, longitude: position.longitude)
         for (indx , detail) in ordrsDetails.enumerated(){
             
             if detail.user_location! == positionStr{
                 
                 UserDefaults.standard.set( indx, forKey: "order_indx")
-                break
+                showPhotoMenu()
+                return false
             }
         }
-        
-        ordrLocation = CLLocation.init(latitude: 32.023906, longitude:  32.368344)
-        showPhotoMenu()
+                geocoder.reverseGeocodeLocation(ordrLocation!, completionHandler: {
+                    
+                    placemarks,error in
+                    if error==nil , let p=placemarks , !p.isEmpty{
+                        
+                        self.placemark=p.last!
+                        
+                    }
+                    else{
+                        self.placemark=nil
+                    }
+                    
+//                    self.lastGeocodingError=error
+//                    self.performingReverseGeocoding=false
+                })
+        if let placemark=placemark{
+                               marker.title = placemark.locality
+                               marker.snippet = placemark.country}
+            
         return false
     }
     
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
+        self.startLocationManager()
+        return false
+    }
 }
 
 extension MapViewController:CLLocationManagerDelegate{
@@ -200,31 +217,6 @@ extension MapViewController:CLLocationManagerDelegate{
             print("Location status is OK.")
           }
         }
-//
-//    @objc func btnMyLocationAction() {
-//        let authreq = CLLocationManager.authorizationStatus()
-//        if authreq == .notDetermined {
-//            locationManager.requestWhenInUseAuthorization()
-//            return
-//        }
-//        else
-//        {
-//            if authreq == .denied || authreq == .restricted {
-//                showLocationServiceDeniedAlert()
-//                return
-//            }
-//
-//        }
-//        // 9
-//        if updatingLocation {
-//            stopLocationManager()
-//        } else {
-//            lastLocationError = nil
-//            lastGeocodingError = nil
-//            startLocationManager()
-//        }
-//
-//    }
     
       func showLocationServiceDeniedAlert(){
             
@@ -294,25 +286,6 @@ extension MapViewController:CLLocationManagerDelegate{
                         performingReverseGeocoding=false }
                 }
                 
-                if !performingReverseGeocoding{
-                    
-                    print(" yooo ")
-                    performingReverseGeocoding=true
-                    geocoder.reverseGeocodeLocation(newLocation, completionHandler: {
-                        
-                        placemarks,error in
-                        if error==nil , let p=placemarks , !p.isEmpty{
-                            
-                            self.placemark=p.last!
-                        }
-                        else{
-                            self.placemark=nil
-                        }
-                        
-                        self.lastGeocodingError=error
-                        self.performingReverseGeocoding=false
-                    })
-                }
             }
             else if distance<1
             {
@@ -421,6 +394,7 @@ extension MapViewController{
     
     
     
+    
     func drawPath(startLocation: CLLocation, endLocation: CLLocation)
     {
         let origin = "\(startLocation.coordinate.latitude),\(startLocation.coordinate.longitude)"
@@ -523,7 +497,7 @@ extension MapViewController{
     func routeURL(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) -> URL{
           
           let apiKey2="AIzaSyCU9X9RzA1rgfhs0becy_5m6oYLSSI1sxQ"
-          let urlString=String(format: "https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=true&mode=driving&key=%@", source.latitude, source.longitude, destination.latitude, destination.longitude, apiKey2)
+          let urlString=String(format: "https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=true&mode=driving&key=%@", source.latitude, source.longitude, destination.latitude, destination.longitude, apiKy2)
           print(urlString)
           let url = URL(string: urlString)
           
