@@ -17,6 +17,11 @@
 		6A8B99F42421107C005A17AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B99F22421107C005A17AD /* LaunchScreen.storyboard */; };
 		6AA2E8BC242224E9009470A1 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 6AA2E8BB242224E9009470A1 /* Podfile */; };
 		6AA2E8BE24226FFA009470A1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA2E8BD24226FFA009470A1 /* MapViewController.swift */; };
+		ED6F4A69242511AB00BA14E6 /* UIView+Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F4A68242511AB00BA14E6 /* UIView+Spinner.swift */; };
+		ED6F4A6B242566D000BA14E6 /* GetRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6F4A6A242566D000BA14E6 /* GetRestaurantViewController.swift */; };
+		EDA90F162428FABF004C36ED /* OrderDetailsTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA90F152428FABC004C36ED /* OrderDetailsTableTableViewController.swift */; };
+		EDA90F182429028E004C36ED /* CustomOrderDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA90F172429028E004C36ED /* CustomOrderDetailsCell.swift */; };
+		EDA90F1A24295444004C36ED /* CustomNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA90F1924295444004C36ED /* CustomNavViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,11 @@
 		6A8B99F52421107C005A17AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AA2E8BB242224E9009470A1 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6AA2E8BD24226FFA009470A1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		ED6F4A68242511AB00BA14E6 /* UIView+Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Spinner.swift"; sourceTree = "<group>"; };
+		ED6F4A6A242566D000BA14E6 /* GetRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRestaurantViewController.swift; sourceTree = "<group>"; };
+		EDA90F152428FABC004C36ED /* OrderDetailsTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsTableTableViewController.swift; sourceTree = "<group>"; };
+		EDA90F172429028E004C36ED /* CustomOrderDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOrderDetailsCell.swift; sourceTree = "<group>"; };
+		EDA90F1924295444004C36ED /* CustomNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavViewController.swift; sourceTree = "<group>"; };
 		FFEAC27A8ACDE665B835E151 /* Pods-Talabat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Talabat.debug.xcconfig"; path = "Target Support Files/Pods-Talabat/Pods-Talabat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,11 +84,16 @@
 				6A8B99E924211057005A17AD /* SceneDelegate.swift */,
 				6A8B99EB24211057005A17AD /* ViewController.swift */,
 				6A8B99ED24211057005A17AD /* Main.storyboard */,
+				EDA90F152428FABC004C36ED /* OrderDetailsTableTableViewController.swift */,
 				6AA2E8BD24226FFA009470A1 /* MapViewController.swift */,
 				6A8B99F02421107C005A17AD /* Assets.xcassets */,
 				6A8B99F22421107C005A17AD /* LaunchScreen.storyboard */,
 				6A8B99F52421107C005A17AD /* Info.plist */,
 				6A77A9AC2422C09F009554C8 /* Entities.swift */,
+				EDA90F172429028E004C36ED /* CustomOrderDetailsCell.swift */,
+				ED6F4A68242511AB00BA14E6 /* UIView+Spinner.swift */,
+				ED6F4A6A242566D000BA14E6 /* GetRestaurantViewController.swift */,
+				EDA90F1924295444004C36ED /* CustomNavViewController.swift */,
 			);
 			path = Talabat;
 			sourceTree = "<group>";
@@ -216,11 +231,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6F4A69242511AB00BA14E6 /* UIView+Spinner.swift in Sources */,
 				6A77A9AD2422C0A0009554C8 /* Entities.swift in Sources */,
 				6A8B99EC24211057005A17AD /* ViewController.swift in Sources */,
 				6A8B99E824211057005A17AD /* AppDelegate.swift in Sources */,
 				6A8B99EA24211057005A17AD /* SceneDelegate.swift in Sources */,
+				EDA90F1A24295444004C36ED /* CustomNavViewController.swift in Sources */,
+				ED6F4A6B242566D000BA14E6 /* GetRestaurantViewController.swift in Sources */,
+				EDA90F162428FABF004C36ED /* OrderDetailsTableTableViewController.swift in Sources */,
 				6AA2E8BE24226FFA009470A1 /* MapViewController.swift in Sources */,
+				EDA90F182429028E004C36ED /* CustomOrderDetailsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,7 +392,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-8lion.Talabat";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Talabat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -391,7 +411,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-8lion.Talabat";
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Talabat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
