@@ -97,7 +97,7 @@ class ViewController: UIViewController {
         Alamofire.request(url!,
                              method: .post,
                              parameters: [:],
-                             encoding: JSONStringArrayEncoding.init(string: "{\n\"mobile\":\"0123456789\",\n\"password\":\"123000\",\n\"access_key\":\"Gdka52DASWE3DSasWE742Wq\",\n\"access_password\":\"yH52dDDF85sddEWqPNV7D12sW5e\"\n}"
+                             encoding: JSONStringArrayEncoding.init(string: "{\n\"mobile\":\"\(userName)\",\n\"password\":\"\(password)\",\n\"access_key\":\"Gdka52DASWE3DSasWE742Wq\",\n\"access_password\":\"yH52dDDF85sddEWqPNV7D12sW5e\"\n}"
 ), headers: [:])
                
                .responseJSON { (response:DataResponse) in

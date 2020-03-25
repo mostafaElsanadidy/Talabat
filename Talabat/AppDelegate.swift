@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
+
 let apiKy = "AIzaSyCRMeKXk63pTU8YC3Shpn8DHFW5Kl2Ze0Y"
 
 let apiKy2 = "AIzaSyAe60T75FEu_LWmqMgyYwA8vxGWg4Iw-V8"
@@ -26,8 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSPlacesClient.provideAPIKey(apiKy)
         GMSServices.provideAPIKey(apiKy)
-        GMSPlacesClient.provideAPIKey(apiKy2)
-        GMSServices.provideAPIKey(apiKy2)
         return true
     }
 
