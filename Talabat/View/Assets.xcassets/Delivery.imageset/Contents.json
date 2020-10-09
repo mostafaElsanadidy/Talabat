@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "kissclipart-warehouse-icon-clipart-computer-icons-clip-art-3f43227f90e86af7.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

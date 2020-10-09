@@ -4,4 +4,5 @@ target 'Talabat' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
   pod 'AlamofireImage'
+  pod 'NVActivityIndicatorView'
 end
